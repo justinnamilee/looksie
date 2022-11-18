@@ -1,0 +1,28 @@
+---
+# express related config
+app:
+  # in megabytes
+  fileSizeLimit: 5
+  # decimal points
+  fixedLimit: 3
+  # real files
+  path:
+    static: 'public'
+    paste: 'private/paste.html'
+    upload: 'public/screenshot.png'
+  # duh
+  port: 3169
+  requestFile: 'image'
+  # URL paths
+  route:
+    about: '/about'
+    paste: '/look'
+    upload: '/upload'
+# add as many users as you want for access to upload html
+auth:
+  notAnAdmin: 'changeMeYouDolt69420!'
+# just some strings, plz ignore
+ui:
+  authed: 'Authorized: '
+  new: 'New looksie: '
+  startup: 'Looksie looksie, we starting up: '
