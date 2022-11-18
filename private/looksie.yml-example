@@ -1,6 +1,7 @@
 ---
 # express related config
 app:
+  debug: false
   # in megabytes
   fileSizeLimit: 5
   # decimal points

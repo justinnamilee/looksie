@@ -48,7 +48,9 @@ looksie.get(cd.app.route.paste, expressAuth({ users: cd.auth, challenge: true })
 });
 
 looksie.post(cd.app.route.upload, (req, res) => {
-  console.log(req.files);
+  if (cd.app.debug) {
+    console.log(req.files);
+  }
 
   if (cd.app.requestFile in req.files) {
     const { image } = req.files;
