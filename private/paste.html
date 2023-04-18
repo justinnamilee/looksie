@@ -9,13 +9,86 @@
       background-color: rgb(105, 40, 75);
       color: black;
     }
+
+    #snackbar {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #f0d;
+      color: #222;
+      text-align: center;
+      border-radius: 2px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+    }
+
+    #snackbar.show {
+      visibility: visible;
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @-webkit-keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 30px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 30px;
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
+      }
+
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
+      }
+
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
   </style>
-
-</head>
-
-<body>
   <script>
     const path = '/upload'; // change me?
+
+    function showToast(m) {
+      const t = document.getElementById('snackbar');
+      t.innerText = m;
+      t.className = 'show';
+      setTimeout(() => t.className = "", 5000);
+    }
 
     document.onpaste = (ev) => {
       const items = (ev.clipboardData || ev.originalEvent.clipboardData).items;
@@ -29,21 +102,27 @@
       }
 
       if (typeof (image) !== 'undefined') {
+        showToast('Your image is now uploading!');
+
         const form = new FormData();
         form.append('image', image);
 
         const req = new XMLHttpRequest();
 
         req.onload = () => {
-          window.location.href = location.origin;
+          //window.location.href = location.origin;
         };
 
         req.open('POST', location.origin + path);
         req.send(form);
       }
       else {
-        console.error('Oi!  No "image/png" found on clipboard, ya dolt.');
+        showToast('Oi!  No "image/png" found on clipboard, ya dolt.');
       }
     };
   </script>
+</head>
+
+<body>
+  <div id='snackbar'></div>
 </body>
