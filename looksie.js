@@ -40,14 +40,14 @@ looksie.use(
 
 
 //? setup routes
-looksie.get(cd.app.route.paste, expressAuth({ users: cd.auth, challenge: true }), (req, res) => {
+looksie.get(cd.app.route.paste, expressAuth({ users: cd.auth.users, challenge: true, realm: cd.auth.realm }), (req, res) => {
   const host = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   console.log(cd.ui.authed + `host(${host})`);
 
   res.sendFile(path.join(__dirname, cd.app.path.paste));
 });
 
-looksie.post(cd.app.route.upload, (req, res) => {
+looksie.post(cd.app.route.upload, expressAuth({ users: cd.auth.users, challenge: true, realm: cd.auth.realm }), (req, res) => {
   if (cd.app.debug) {
     console.log(req.files);
   }
